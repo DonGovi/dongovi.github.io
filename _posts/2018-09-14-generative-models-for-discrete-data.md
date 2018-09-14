@@ -8,7 +8,7 @@ header-img:  img/ml-bg.jpg
 catalog:   true
 mathjax:   true
 tags:      
-          -Machine Learning
+     -Machine Learning
 ---
 
 

@@ -3,7 +3,6 @@ title: DonGovi Blog
 SEOTitle: DonGovi Blog
 header-img: img/post-bg-desk2.jpg
 email: ykdonjuan@gmail.com
-description: "功不唐捐"
 keyword: "DonGovi, DonGovi Blog, Machine Learning, Image Processing, Deep Learning"
 url: "http://dongovi.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'

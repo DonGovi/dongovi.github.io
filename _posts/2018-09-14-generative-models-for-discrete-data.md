@@ -8,10 +8,10 @@ header-img: img/post-bg-ml.jpg
 catalog:   true
 mathjax:   true
 tags:      
-     -Machine Learning
+     Machine-Learning
 ---
 
-
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
 
 
 

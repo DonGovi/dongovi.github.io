@@ -56,7 +56,7 @@ kramdown:
 
 # 评论系统
 # Disqus（https://disqus.com/）
-# disqus_username: dongovi
+disqus_username: dongovi
 
 # Gitalk
 gitalk:

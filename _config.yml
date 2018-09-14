@@ -65,7 +65,7 @@ gitalk:
   clientSecret: 4169f01cca923a8f69c8badb2a4220370f626f5b    #生成的clientSecret
   repo: dongovi.github.io    #仓库名称
   owner: DonGovi    #github用户名
-  admin: [DonGovi]
+  admin: DonGovi
   distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
 

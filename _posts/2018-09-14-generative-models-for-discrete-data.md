@@ -4,9 +4,9 @@ title:     Generative models for discrete data
 subtitle:  Bayesian concept learning, Beta-binomial and Dirichlet-multinomial model
 date:      2018-09-14
 author:    DonGovi
-header-img:img/ml-bg.
+header-img:img/ml-bg.jpg
 catalog:   true
-mathjax: true
+mathjax:   true
 tags:      Machine Learning
 ---
 

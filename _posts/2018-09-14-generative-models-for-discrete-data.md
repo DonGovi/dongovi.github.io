@@ -16,7 +16,7 @@ tags:
 
 本系列主要参考Kevin P. Murphy的书籍，Machine learning: A Probabilistic Perspective。该书从理论角度讲述机器学习算法，内容详尽，逻辑流畅，值得机器学习入门阅读。
 
-## 引  言
+## 引    言
 
 首先需要讲一下几个概率统计的概念，方便后面理解。
 

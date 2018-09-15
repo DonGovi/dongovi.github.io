@@ -45,7 +45,7 @@ $$
 
 由此，我们可以得到一种推算参数$\theta$的方法，极大似然估计(Maximum Likelihood Estimate, MLE)。即，推测参数$\theta$，使该参数下事件$D$发生的似然概率最大。例如，上述问题可表示为：
 $$
-\hat{\theta}_{MLE}=\mathop{\arg\max}_{\theta}~P(HHH|\theta=0.5).
+\hat{\theta}_{MLE}=\mathop{\arg\max}_{\theta}~P(HHH|\theta=0.5)。
 $$
 但如果按照MLE估计上述事件中单次抛硬币正面朝上的概率$\theta$，则$\theta=1$，这显然是不合理的，这就是稀疏数据(sparse data)导致的过拟合现象(overfitting)。
 

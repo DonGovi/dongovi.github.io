@@ -46,7 +46,7 @@ $$
 $$
 \hat{\theta}_{MLE}=\mathop{\arg\max}_{\theta}~P(HHH|\theta=0.5)
 $$
-但如果按照MLE估计上述事件中，单次抛硬币正面朝上的概率$\theta$，则$\theta=1$，这显然是不合理的，这就是稀疏数据(sparse data)导致的过拟合现象(overfitting)。
+但如果按照MLE估计上述事件中单次抛硬币正面朝上的概率$\theta$，则$\theta=1$，这显然是不合理的，这就是稀疏数据(sparse data)导致的过拟合现象(overfitting)。
 
 ### Prior（先验）
 

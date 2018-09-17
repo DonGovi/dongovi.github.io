@@ -1,14 +1,14 @@
 ---
 layout:    post
 title:     Generative models for discrete data
-subtitle:  Bayesian concept learning, Beta-binomial and Dirichlet-multinomial model
+subtitle:  Naive Bayes classifiers
 date:      2018-09-14
 author:     DonGovi
 header-img: img/post-bg-ml.jpeg
 catalog:   true
 mathjax:   true
 tags:      
-     Machine_Learning
+     Machine-Learning
 ---
 
 
@@ -42,7 +42,7 @@ $$\hat{\theta}_{MLE}=\mathop{argmax}_{\theta}~P(HHH|\theta=0.5).$$
 
 ### Prior（先验）
 
-这个很好理解，先验概率就是由以往的经验得到的概率或假设。
+这个很好理解，先验概率就是由以往的经验得到的概率或假设。此外，还有一个共轭先验(conjugate prior)的概念，若后验分布(posterior distribution)与先验分布(prior distribution)属于同类分布，则称这组先验和后验分布为共轭分布(conjugate distributions)，这个先验被称为其似然函数的共轭先验。
 
 ### Posterior（后验）
 

@@ -134,5 +134,19 @@ p(x \vert D,M)&=\int_0^1 \text{Bin}(x \vert \theta,M)Beta(\theta \vert a,b)d\the
               &=\binom{M}{x}\dfrac{B(x+a, M-x+b)}{B(a,b)}
 \end{align}$$
 
+即为**beta-binomial分布**，其期望为
+
+$$\begin{align}
+\mathbb{E}(x) &= \sum_{x=0}^Mx \int_0^1 \binom{M}{x} \theta^x (1-\theta)^{M-x} \dfrac{\theta^{a-1}(1-\theta)^{b-1}}{\text{B}(a,b)}                d\theta \\
+              &= \int_0^1 \sum_{x=0}^Mx \binom{M}{x} \theta^x (1-\theta)^{M-x} \dfrac{\theta^{a-1}(1-\theta)^{b-1}}{\text{B}(a,b)} d\theta\\
+              &= \int_0^1 M\theta \dfrac{\theta^{a-1}(1-\theta)^{b-1}}{\text{B}(a,b)} d\theta \\
+              &= \dfrac{M}{\text{B}(a,b)} \int_0^1 \theta^a (1-\theta)^{b-1} d\theta \\
+              &= M \dfrac{\text{B}(a+1,b)}{\text{B}(a,b)} \\
+              &= M \dfrac{a}{a+b}
+\end{align}$$
+
+其方差为 $\text{var}(x)=\dfrac{Mab}{(a+b)^2} \dfrac{(a+b+M)}{a+b+1}$
+
+
 
 

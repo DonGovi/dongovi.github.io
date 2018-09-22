@@ -200,6 +200,7 @@ $$\begin{align}
 $$
 \hat{\theta}_k=\dfrac{N_k+\alpha_k-1}{N+\alpha_0-K}
 $$
+
 为狄利克雷分布的众数。假设我们去先验分布为均匀分布，即$\alpha_k=1$，就得到了MLE的结果
 
 $$

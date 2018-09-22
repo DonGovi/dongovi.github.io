@@ -147,6 +147,77 @@ $$\begin{align}
 
 其方差为 $\text{var}(x)=\dfrac{Mab}{(a+b)^2} \dfrac{(a+b+M)}{a+b+1}$
 
+## The Dirichlet-multinomial model
+
+现有一个$K$面的骰子，将其投掷$N$次，$D=\{x_1,...,x_N\}$，其中$x_i=\{1,...,K\}$，每次投骰子是相互独立的。
+
+#### 似然
+
+$$
+p(D \vert \theta)=\prod_{k=1}^K \theta_k^{N_k}
+$$
+
+其中$N_k=\sum_{i=1}^N \mathbb{I}(x_i=k)$，即第$k$面朝上的次数。
+
+#### 先验
+
+假设事件$D$发生前，该骰子已经被投掷了$\alpha$次。与上一章问题相近，该先验也需是共轭先验，我们使用狄利克雷分布(Dirichlet distribution)，既满足共轭性质，又满足probability simplex。
+
+$$
+Dir(\theta \vert \alpha)=\dfrac{1}{B(\alpha)}\prod_{k=1}^K \theta_k^{\alpha_k-1}
+$$
+
+#### 后验
+
+将先验与似然相乘，得到后验，也满足狄利克雷分布。
+
+$$\begin{align}
+p(\theta \vert D)  &\propto p(D \vert \theta)p(\theta) \\
+              &\propto \prod_{k=1}^K \theta_k^{N_k}\theta_k^{\alpha_k-1}=\prod_{k=1}^K \theta_k^{\alpha_k+N_k-1} \\
+              &= \text{Dir}(\theta \vert \alpha_1+N_1,...,\alpha_K+N_K)
+\end{align}$$
+
+为了使用MAP解决这个问题，我们首先要约束$\sum_k \theta_k=1$，然后引入拉格朗日乘子(Lagrange multiplier)，将上式转化为似然和先验的对数之和，再加上约束，即：
+
+$$
+l(\theta, \lambda)=\sum_k N_k\text{log}\theta_k+\sum_k(\alpha_k-1)\text{log}\theta_k+\lambda\left(1-\sum_k\theta_k\right)
+$$
+为了使问题简化，令$N_k^{\prime} \triangleq N_k+\alpha_k-1$，$\alpha_0 \triangleq \sum_{k=1}^K\alpha_k$，对$\lambda$求导可得
+
+$$
+\dfrac{\partial l}{\partial \lambda}=\left(1-\sum_k \theta_k\right)=0
+$$
+对$\theta_k$求导可得
+
+$$\begin{align}
+\dfrac{\partial l}{\partial \theta_k}&=\dfrac{N_k^{\prime}}{\theta}-\lambda =0\\
+ N_k^{\prime}&=\lambda \theta_k \\
+\sum_k N_k^{\prime} &= \lambda \sum_k \theta^k  
+\end{align}$$
+
+由前面的sum-to-one约束可得$N+\alpha_0-K=\lambda$。因此，MAP估计的结果为
+
+$$
+\hat{\theta}_k=\dfrac{N_k+\alpha_k-1}{N+\alpha_0-K}
+$$
+为狄利克雷分布的众数。假设我们去先验分布为均匀分布，即$\alpha_k=1$，就得到了MLE的结果
+
+$$
+\hat{\theta}_k=\dfrac{N_k}{N}
+$$
+
+#### 后验预测
+
+现求下一次投掷骰子时，第$j$面朝上的概率。
+
+$$\begin{align}
+p(X=j \vert D)&=\int p(X=j \vert \theta)p(\theta \vert D)d\theta \\
+&= \int p(X=j \vert \theta_j)\left[ \int p(\theta_{-j}, \theta_j) \vert D)d\theta_{-j} \right]d\theta_j \\
+&= \int \theta_j p(\theta_j \vert D) d\theta_j = \mathbb{E}[\theta_j \vert D] =\dfrac{\alpha_j+N_j}{\alpha_0+N}
+\end{align}$$
+
+其中，$\theta_{-j}$是除$\theta_j$以外$\theta$中的其他分量。
+
 
 
 

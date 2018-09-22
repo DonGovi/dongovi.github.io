@@ -95,7 +95,7 @@ $$
 \text{B}(p,q) = \frac{\Gamma(p)\Gamma(q)}{\Gamma(p+q)}
 $$
 
-## Beta-binomial model
+## The beta-binomial model
 
 考虑一个简单的离散问题，抛硬币$N$次，其中正面朝上的次数为$N_1$，背面朝上为$N_0$，即事件$D=\lbrace N_1, N \rbrace $。设$X_i \sim \text{Ber}(\theta)$（Bernoulli分布），其中$X_i=1$表示硬币正面朝上，$X_i=0$表示背面朝上，$\theta \in [0, 1]$是正面朝上的概率，$N_1=\sum_{i=1}^{N} \mathbb{I}(x_i=1)$，$N_0=\sum_{i=1}^{N} \mathbb{I}(x_i=0)$，$N=N_1+N_0$。假设每次抛硬币之间相互独立，若考虑投掷硬币的计数，也就是$N$次中哪几次正面朝上，即$N_1$服从Binomial分布$N_1 \sim \text{Bin}(N, \theta)$，其概率质量函数为\\[\text{Bin}(N_1 \vert N, \theta) \triangleq  \binom{N}{N_1} \theta^{N_1}\theta^{N_0}\\]，由于$ \left( \frac{N}{N_1} \right)$与参数$\theta$无关，其似然可以表达为$p(D \vert \theta) = \theta^{N_1}(1-\theta)^{N_0}$。
 

@@ -298,7 +298,7 @@ $$\begin{align}
 
 算法如下
 
-![1537720805416](img/ml/nbc_predict.png)
+![1537720805416](/img/ml/nbc_predict.png)
 
 ###### The log-sum-exp trick
 

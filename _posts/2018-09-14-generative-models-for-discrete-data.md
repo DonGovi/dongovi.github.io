@@ -219,6 +219,100 @@ p(X=j \vert D)&=\int p(X=j \vert \theta)p(\theta \vert D)d\theta \\
 
 其中，$\theta_{-j}$是除$\theta_j$以外$\theta$中的其他分量。
 
+## 朴素贝叶斯分类器 (naive Bayes classifiers)
+
+现有一个离散数据集$\text{x} \in \{1,~...,~K\}^D$，其中$D$是特征数，$K$是每项特征可能的取值数。想要得到一个分类模型，首先需要明确这些类别的条件分布$p(\text{x} \vert y=c)$。为了简化问题，假设所有特征相对于类别$y$条件独立，由此该类条件概率密度可以由每一维特征的条件概率相乘得到，即：
+
+$$
+p(\text{x} \vert y=c, \theta)=\prod_{j=1}^D p(x_j \vert y=c, \theta_{jc})
+$$
+
+如此就得到了该数据集的朴素贝叶斯分类器(NBC)，之所以称之为“朴素(naive)”，原因在于几乎所有问题都无法满足特征关于类别条件独立的假设。
+
+对于不同的特征，类条件概率密度也不相同：
+*  若特征是实数特征(real-valued features)，可以使用高斯分布(Gaussion distribution)，即$p(\text{x} \vert y=c, \theta)=\prod_{j=1}^D \mathcal{N}(x_j \vert \mu_{jc}, \sigma_{jc}^2)$，其中$\mu_{jc}$是类别$c$中特征$x_j$在数据集中分布的期望，$\sigma_{jc}^2$是方差。
+*  若特征是二进制特征(binary features)，可以使用伯努利分布，即$p(\text{x} \vert y=c, \theta)=\prod_{j=1}^D \text{Ber}(x_j \vert \mu_{jc})$，其中$\mu_{jc}$是类别$c$中特征$x_j$出现的概率。
+*  若特征是类别特征(categorical features)，$x_j \in \{1,~...,~K\}$，可以使用multinoulli distribution，即$p(\text{x} \vert y=c, \theta)=\prod_{j=1}^D \text{Cat}(x_j \vert \mu_{jc})$，其中$\mu_{jc}$是类别$c$中特征$x_j$的$K$个可能取值的直方图统计。
+
+#### 模型训练
+通常使用MLE或MAP进行参数估计
+###### 使用MLE训练NBC
+
+对于数据集$\text{x}$中的每一条数据，其似然概率可以表达为
+
+$$
+p(\text{x}_i,y_i \vert \theta)=p(y_i \vert \pi)\prod_j p(x_{ij} \vert \theta_j)=\prod_c \pi_c^{\mathbb{I}(y_i=c)} \prod_j \prod_c p(x_{ij} \vert \theta_{jc})^{\mathbb{I}(y_i=c)}
+$$
+
+对其计算对数，可得
+
+$$
+\text{log}p(D \vert \theta)=\sum_{c=1}^C N_c \text{log}\pi_c + \sum_{j=1}^D \sum_{c=1}^C \sum_{i:y_i=c} \text{log} p(x_{ij} \vert \theta_{jc})
+$$
+
+其中，$N_c \triangleq \sum_i \mathbb{I}(y_i=c)$，代表类别$c$的样本数量。则$y_i$服从多项式分布(multinomial distribution)，$y \sim \text{Mu}(N,~\pi) $，由上一章计算的MLE结果，可以得到$$\hat{\pi}_c=\dfrac{N_c}{N}$$。简单起见，假设所有特征$x_j$都是binary features，我们可以得到$x_j \vert y=c \sim \text{Ber}(\theta_{jc})$，由MLE估计参数$\theta_{jc}$可得$\hat{\theta_{jc}}=\dfrac{N_{jc}}{N_c}$。
+
+###### Bayesian naive bayes
+
+前面提到过，MLE在数据集不充分的情况下可能导致过拟合。接着上面binary features的例子，假设某特征$x_j$在数据集$D$的所有类别的所有样本中均为1，那么$\hat{\theta}_{jc}=1$。用这个模型预测时，出现了一个例子，其$x_j=0$，然后模型就发生了错误，因为对于任何类别$c$，$p(y=c \vert \text{x},\hat{\theta})=0$。可以采用**拉普拉斯平滑(Laplace smoothing)**解决这个问题，对数据给定一个先验，对$\pi$给定先验$\text{Dir}(\alpha),~\alpha=\{1,~...,~1\}^C$，对$\theta_{jc}$给定先验$\text{Beta}(\beta_0,\beta_1),~\beta_0=\beta_1=1$。将先验和上述似然结合，可以得到后验
+
+$$
+p(\theta \vert D)=p(\pi \vert D)\prod_{j=1}^D \prod_{c=1}^C p(\theta_{jc} \vert D)
+$$
+
+根据前面两章的后验部分，我们可以得到
+
+$$\begin{align}
+p(\pi \vert D)&=\text{Dir}(N_1+\alpha_1,~..., N_C+\alpha_C) \\
+p(\theta_{jc} \vert D)&=\text{Beta}((N_c-N_{jc})+\beta_0,N_{jc}+\beta_1)
+\end{align}$$
+
+#### 使用NBC预测
+
+在测试阶段，目标是计算当前特征$\text{x}$下，每个类别$c$的概率，概率最大的类别即为预测的类别。由贝叶斯定理我们可以得到一个**生成式分类器**（generative classifiers）
+
+$$
+p(y=c \vert \text{x},\theta)=\dfrac{p(y=c \vert \theta)p(\text{x} \vert y=c,\theta)}{\sum_{c^{\prime}} p(y=c^{\prime} \vert \theta)p(\text{x} \vert y=c^{\prime}, \theta)}
+$$
+
+由于分母已知，可以得到
+
+$$\begin{align}
+p(y=c \vert \text{x},D) &\propto p(y=c \vert D)\prod_{j=1}^D p(x_j \vert y=c,D)\\
+&\propto \bar{\pi}_c  \prod_{j=1}^D \bar{\theta}_{jc}^{\mathbb{I}(x_j=1)}(1-\bar{\theta}_{jc})^{\mathbb{I}(x_j=0)}
+\end{align}$$
+
+根据前面两章中后验预测的计算结果，我们知道狄利克雷分布和beta分布的后验预测即为其分布的**期望**，即
+
+$$\begin{align}
+\bar{\pi}_c&=\dfrac{N_c+\alpha_c}{N+\alpha_0}\\
+\bar{\theta}_{jk}&=\dfrac{N_{jc}+\beta_1}{N_c+\beta_0+\beta_1}
+\end{align}$$
+
+其中$\alpha_0=\sum_{c}\alpha_c$。可以使用对数的方式求解上式
+
+$$\begin{align}
+\text{log} p(y=c \vert \text{x},D) &\propto \text{log} \bar{\pi}_c + \text{log} \prod_{j=1}^D \bar{\theta}_{jc}^{\mathbb{I}(x_j=1)}(1-\bar{\theta}_{jc})^{\mathbb{I}(x_j=0)} \\
+ &\propto \text{log} \bar{\pi}_c + \sum_{j:x_j=1} \text{log} \bar{\theta}_{jc}+\sum_{j:x_j=0}  \text{log} (1-\bar{\theta}_{jc})
+\end{align}$$
+
+算法如下
+
+![1537720805416](img/ml/nbc_predict.png)
+
+###### The log-sum-exp trick
+
+计算机在计算$\text{log} \sum_c e^{b_c}$时，容易发成下溢(numerical underflow)或上溢(overflow)。解决这个问题最常用的方式是log-sum-exp (LSE)
+
+$$
+\text{log} \sum_c e^{b_c}=\text{log}\left[ \left( \sum_c e^{b_c-B}\right)e^B\right]=\text{log} \left( \sum_c e^{b_c-B}\right) + B
+$$
+
+其中$B=\max_c b_c$。在上述NBC预测算法中，若只需找到$\hat{y}_i$，只需找到最大的$\text{log}p(y=c \vert \text{x},D) $，无需引入LSE。但若需要计算出$p(y=c \vert \text{x},D) $，则需要LSE计算NBC的分母项，以免因为参数的归一化导致下溢。
+
+## 参考文献
+1. Kevin P. Murphy. Machine Learning: A Probabilistic Perspective [M]. The U.S.: Massachusetts Institute of Technology, 2012.
+2. 华东师范大学数学系. 《数学分析》[M]. 北京: 高等教育出版社, 2012.
 
 
 

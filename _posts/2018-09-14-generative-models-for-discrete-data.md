@@ -115,7 +115,7 @@ $$
 最后，计算方差度量上述参数估计的不确定性。后验Beta分布的方差为\\[\text{var}[\theta \vert D]=\dfrac{(a+N_1)(b+N_0)}{(\alpha_0+N)^2(\alpha_0 + N + 1)}\\]假设$N \gg \alpha_0$，有\\[\text{var}[\theta \vert D] \approx \dfrac{N_1N_0}{NNN}=\dfrac{\hat{\theta}(1-\hat{\theta})}{N}\\]其中$\hat{\theta}$是MLE，则其标准差为$\sigma = \sqrt{\dfrac{\hat{\theta}(1-\hat{\theta})}{N}}$。也就是说，当$\hat{\theta}=0.5$时，偏差最大，不确定性最高；当$\hat{\theta}$趋近于0或1时，不确定性减小。
 
 #### 后验预测分布
-**问题一：**假设一枚硬币已经被投掷了$alpha_0$次，其中$a$次正面，$b$次反面，求下一次投掷是正面的概率。也就是在后验满足$\text{Beta}(a,b)$的情况下，预测下一次是正面的概率。
+**问题一：**假设一枚硬币已经被投掷了$\alpha_0$次，其中$a$次正面，$b$次反面，求下一次投掷是正面的概率。也就是在后验满足$\text{Beta}(a,b)$的情况下，预测下一次是正面的概率。
 
 $$\begin{align}
 p(\tilde{x}=1 \vert D)&=\int_0^1p(x=1 \vert \theta)p(\theta \vert a,b)d\theta \\

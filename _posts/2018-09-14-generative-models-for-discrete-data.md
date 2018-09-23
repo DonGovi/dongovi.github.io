@@ -124,7 +124,7 @@ p(\tilde{x}=1 \vert D)&=\int_0^1p(x=1 \vert \theta)p(\theta \vert a,b)d\theta \\
                       &=\dfrac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \cdot \dfrac{a\Gamma(a)\Gamma(b)}{(a+b)\Gamma(a+b)}=\dfrac{a}{a+b} =\mathbb{E}[\theta \vert a,b]
 \end{align}$$
 
-结果等于后验均值。假设$a=0,~b=\alpha_0$，即之前没有抛出过正面，那么下一次是证明的概率就成了0，也就是在数据规模较小的情况下，Bayesian methods的可用性大大降低。对于这种情况，可以使用add-one smoothing，也就是使用均匀先验，设定$a=1,~b=1$，然后再计算后验均值。
+结果等于后验均值。假设$a=0,~b=\alpha_0$，即之前没有抛出过正面，那么下一次是正面的概率就成了0，也就是在数据规模较小的情况下，Bayesian methods的可用性大大降低。对于这种情况，可以使用add-one smoothing，也就是使用均匀先验，设定$a=1,~b=1$，然后再计算后验均值。
 
 **问题二：**现预测之后$M$次投掷中，正面的次数$x$，有：
 

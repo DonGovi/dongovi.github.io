@@ -149,7 +149,7 @@ $$\begin{align}
 
 ## The Dirichlet-multinomial model
 
-现有一个$K$面的骰子，将其投掷$N$次，$D=\{x_1,...,x_N\}$，其中$x_i=\{1,...,K\}$，每次投骰子是相互独立的。
+现有一个$K$面的骰子，将其投掷$N$次，$D=\lbrace x_1,...,x_N\rbrace$，其中$x_i=\lbrace 1,...,K \rbrace$，每次投骰子是相互独立的。
 
 #### 似然
 
@@ -182,6 +182,7 @@ p(\theta \vert D)  &\propto p(D \vert \theta)p(\theta) \\
 $$
 l(\theta, \lambda)=\sum_k N_k\text{log}\theta_k+\sum_k(\alpha_k-1)\text{log}\theta_k+\lambda\left(1-\sum_k\theta_k\right)
 $$
+
 为了使问题简化，令$N_k^{\prime} \triangleq N_k+\alpha_k-1$，$\alpha_0 \triangleq \sum_{k=1}^K\alpha_k$，对$\lambda$求导可得
 
 $$
@@ -221,7 +222,7 @@ p(X=j \vert D)&=\int p(X=j \vert \theta)p(\theta \vert D)d\theta \\
 
 ## 朴素贝叶斯分类器 (naive Bayes classifiers)
 
-现有一个离散数据集$\text{x} \in \{1,~...,~K\}^D$，其中$D$是特征数，$K$是每项特征可能的取值数。想要得到一个分类模型，首先需要明确这些类别的条件分布$p(\text{x} \vert y=c)$。为了简化问题，假设所有特征相对于类别$y$条件独立，由此该类条件概率密度可以由每一维特征的条件概率相乘得到，即：
+现有一个离散数据集$\text{x} \in \lbrace 1,~...,~K\rbrace^D$，其中$D$是特征数，$K$是每项特征可能的取值数。想要得到一个分类模型，首先需要明确这些类别的条件分布$p(\text{x} \vert y=c)$。为了简化问题，假设所有特征相对于类别$y$条件独立，由此该类条件概率密度可以由每一维特征的条件概率相乘得到，即：
 
 $$
 p(\text{x} \vert y=c, \theta)=\prod_{j=1}^D p(x_j \vert y=c, \theta_{jc})

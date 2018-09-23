@@ -254,7 +254,19 @@ $$
 
 ###### Bayesian naive bayes
 
-前面提到过，MLE在数据集不充分的情况下可能导致过拟合。接着上面binary features的例子，假设某特征$x_j$在数据集$D$的所有类别的所有样本中均为1，那么$\hat{\theta}_{jc}=1$。用这个模型预测时，出现了一个例子，其$x_j=0$，然后模型就发生了错误，因为对于任何类别$c$，有$p(y=c \vert \text{x},\hat{\theta})=0$。可以采用**拉普拉斯平滑(Laplace smoothing)**解决这个问题，对数据给定一个先验，对$\pi$给定先验$\text{Dir}(\alpha),~\alpha=\{1,~...,~1\}^C$，对$\theta_{jc}$给定先验$\text{Beta}(\beta_0,\beta_1),~\beta_0=\beta_1=1$。将先验和上述似然结合，可以得到后验
+前面提到过，MLE在数据集不充分的情况下可能导致过拟合。接着上面binary features的例子，假设某特征$x_j$在数据集$D$的所有类别的所有样本中均为1，那么
+
+$$
+\hat{\theta}_{jc}=1
+$$
+
+用这个模型预测时，出现了一个例子，其$x_j=0$，然后模型就发生了错误，因为对于任何类别$c$，有
+
+$$
+p(y=c \vert \text{x},\hat{\theta})=0
+$$
+
+可以采用**拉普拉斯平滑(Laplace smoothing)**解决这个问题，对数据给定一个先验，对$\pi$给定先验$\text{Dir}(\alpha),~\alpha=\{1,~...,~1\}^C$，对$\theta_{jc}$给定先验$\text{Beta}(\beta_0,\beta_1),~\beta_0=\beta_1=1$。将先验和上述似然结合，可以得到后验
 
 $$
 p(\theta \vert D)=p(\pi \vert D)\prod_{j=1}^D \prod_{c=1}^C p(\theta_{jc} \vert D)

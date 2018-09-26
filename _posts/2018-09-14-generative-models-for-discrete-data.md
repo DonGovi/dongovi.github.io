@@ -267,7 +267,7 @@ $$
 p(y=c \vert \text{x},\hat{\theta})=0
 $$
 
-可以采用**拉普拉斯平滑(Laplace smoothing)**解决这个问题，对数据给定一个先验，对$\pi$给定先验$\text{Dir}(\alpha),~\alpha=\{1,~...,~1\}^C$，对$\theta_{jc}$给定先验$\text{Beta}(\beta_0,\beta_1),~\beta_0=\beta_1=1$。将先验和上述似然结合，可以得到后验
+可以采用**拉普拉斯平滑(Laplace smoothing)**解决这个问题，对数据给定一个先验，对$\pi$给定先验$\text{Dir}(\alpha),~\alpha=\lbrace 1,~...,~1\rbrace^C$，对$\theta_{jc}$给定先验$\text{Beta}(\beta_0,\beta_1),~\beta_0=\beta_1=1$。将先验和上述似然结合，可以得到后验
 
 $$
 p(\theta \vert D)=p(\pi \vert D)\prod_{j=1}^D \prod_{c=1}^C p(\theta_{jc} \vert D)

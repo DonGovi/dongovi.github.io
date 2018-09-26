@@ -233,7 +233,7 @@ $$
 对于不同的特征，类条件概率密度也不相同：
 *  若特征是实数特征(real-valued features)，可以使用高斯分布(Gaussion distribution)，即$p(\text{x} \vert y=c, \theta)=\prod_{j=1}^D \mathcal{N}(x_j \vert \mu_{jc}, \sigma_{jc}^2)$，其中$\mu_{jc}$是类别$c$中特征$x_j$在数据集中分布的期望，$\sigma_{jc}^2$是方差。
 *  若特征是二进制特征(binary features)，可以使用伯努利分布，即$p(\text{x} \vert y=c, \theta)=\prod_{j=1}^D \text{Ber}(x_j \vert \mu_{jc})$，其中$\mu_{jc}$是类别$c$中特征$x_j$出现的概率。
-*  若特征是类别特征(categorical features)，$x_j \in \{1,~...,~K\}$，可以使用multinoulli distribution，即$p(\text{x} \vert y=c, \theta)=\prod_{j=1}^D \text{Cat}(x_j \vert \mu_{jc})$，其中$\mu_{jc}$是类别$c$中特征$x_j$的$K$个可能取值的直方图统计。
+*  若特征是类别特征(categorical features)，$x_j \in \lbrace1,~...,~K\rbrace$，可以使用multinoulli distribution，即$p(\text{x} \vert y=c, \theta)=\prod_{j=1}^D \text{Cat}(x_j \vert \mu_{jc})$，其中$\mu_{jc}$是类别$c$中特征$x_j$的$K$个可能取值的直方图统计。
 
 #### 模型训练
 通常使用MLE或MAP进行参数估计
